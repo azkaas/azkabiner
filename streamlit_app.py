@@ -21,14 +21,14 @@ if "history" not in st.session_state:
     st.session_state.history = []
 
 # ==========================
-# LAYOUT 2 KOLOM
+# LAYOUT
 # ==========================
 
 col1, col2 = st.columns([1,2])
 
-# ==================================================
-# KOLOM KIRI (TEORI)
-# ==================================================
+# ==================================
+# KOLOM TEORI
+# ==================================
 
 with col1:
 
@@ -37,19 +37,16 @@ with col1:
         st.subheader("📘 Teori Singkat")
 
         st.write("""
-Bilangan biner adalah sistem bilangan berbasis 2
-yang hanya menggunakan digit 0 dan 1.
+Bilangan biner adalah sistem bilangan berbasis 2 yang hanya menggunakan dua digit, yaitu 0 dan 1. Sistem ini menjadi dasar kerja komputer dan perangkat digital. Setiap digit biner disebut bit (binary digit).
 
-Bilangan desimal adalah sistem bilangan
-berbasis 10 yang menggunakan digit 0–9.
+Bilangan desimal adalah sistem bilangan berbasis 10 yang menggunakan digit 0 sampai 9 dan merupakan sistem bilangan yang paling umum digunakan dalam kehidupan sehari-hari.
 
-Aplikasi ini digunakan untuk melakukan
-konversi antara bilangan biner dan desimal.
+Aplikasi ini digunakan untuk melakukan konversi antara bilangan biner dan bilangan desimal.
 """)
 
-# ==================================================
-# KOLOM KANAN (KALKULATOR)
-# ==================================================
+# ==================================
+# KOLOM KALKULATOR
+# ==================================
 
 with col2:
 
@@ -61,9 +58,9 @@ with col2:
         ]
     )
 
-    # =====================================
+    # ==========================
     # BINER -> DESIMAL
-    # =====================================
+    # ==========================
 
     if menu == "Biner ke Desimal":
 
@@ -98,58 +95,18 @@ with col2:
                     2
                 )
 
-                # metric
                 st.metric(
                     label="Hasil Desimal",
                     value=hasil
                 )
 
-                # langkah
-                st.subheader(
-                    "Langkah Perhitungan"
-                )
-
-                panjang = len(biner)
-
-                langkah = []
-
-                nilai = []
-
-                for i, digit in enumerate(biner):
-
-                    pangkat = panjang-i-1
-
-                    langkah.append(
-                        f"({digit}×2^{pangkat})"
-                    )
-
-                    nilai.append(
-                        str(
-                            int(digit)
-                            * (2**pangkat)
-                        )
-                    )
-
-                st.write(
-                    " + ".join(langkah)
-                )
-
-                st.write(
-                    "= "
-                    + " + ".join(nilai)
-                )
-
-                st.write(
-                    f"= {hasil}"
-                )
-
                 st.session_state.history.append(
-                    f"{biner}₂ → {hasil}₁₀"
+                    f"{biner} → {hasil}"
                 )
 
-    # =====================================
+    # ==========================
     # DESIMAL -> BINER
-    # =====================================
+    # ==========================
 
     else:
 
@@ -177,40 +134,8 @@ with col2:
                 value=hasil
             )
 
-            st.subheader(
-                "Langkah Perhitungan"
-            )
-
-            angka = int(desimal)
-
-            temp = []
-
-            while angka > 0:
-
-                sisa = angka % 2
-
-                temp.append(
-                    f"{angka} ÷ 2 = {angka//2} sisa {sisa}"
-                )
-
-                angka//=2
-
-            if int(desimal)==0:
-
-                temp.append(
-                    "0"
-                )
-
-            for t in temp:
-
-                st.write(t)
-
-            st.write(
-                f"Hasil dibaca dari bawah → {hasil}"
-            )
-
             st.session_state.history.append(
-                f"{int(desimal)}₁₀ → {hasil}₂"
+                f"{int(desimal)} → {hasil}"
             )
 
 # ==========================
@@ -225,7 +150,7 @@ st.subheader(
 
 if len(
     st.session_state.history
-)==0:
+) == 0:
 
     st.write(
         "Belum ada riwayat"
@@ -246,7 +171,7 @@ if st.button(
     "🗑 Hapus Riwayat"
 ):
 
-    st.session_state.history=[]
+    st.session_state.history = []
 
     st.rerun()
 
